@@ -34,3 +34,21 @@ For Project 3, you will work with your group to tell a story using data visualiz
 6. Your final visualization should ideally include at least three views.
 
 
+Breakdown of Tasks
+- Project Ideation - ALL
+- Data Fetching - Michelle 
+- Data Cleanup - Honorine and Cassie
+- Data Merging - Cassie
+- Skeleton Dashboard - Michelle
+- Dashboard Build 
+    - SQL Database - Cassie
+    - Python Flask API - Jordan
+    - JavaScript - Honorine 
+        - Bubble Chart - Honorine
+        - Needle Gauge Visualization - Michelle
+    - HTML/CSS - Michelle
+- Launch to Github Pages - ALL?
+- Presentation - Cassie and Jordan
+
+
+
