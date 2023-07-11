@@ -14,12 +14,73 @@ function buildcharts(country) {
       let values = data.data[country]
       let aqis = data.columns
 
-      //Build Bubblechart
-          // Use AQIs names for the x values
-          // Use AQIs values for the y values
-          // Use AQIs values for the marker size
-          // Use AQIs values for the marker colors
-          // Use AQI names for the text values
+      //needle gauge1
+    let datagauge1 = [
+      {
+          domain: { x: [0, 1], y: [0, 1] },
+          value: values[0],
+          title: { text: "Avg Ozone AQI" },
+          type: "indicator",
+          mode: "gauge+number"
+          //delta: { reference: 400 },
+          //gauge: { axis: { range: [null, 60] } }
+      }
+  ];
+  
+  var layout = { width: 400, height: 500, margin: { t: 0, b: 0 } };
+  Plotly.newPlot('gauge', datagauge1, layout);
+  
+ 
+  //filter
+   //let sampleArray2 = samples.filter(sampleObject => sampleObject.id == sample);
+   //console.log(sampleArray);
+
+   //let sampleResult2 = sampleArray[1];
+   //console.log(sampleResult);
+
+  //needle gauge2
+  let datagauge2 = [
+      {
+          domain: { x: [0, 1], y: [0, 1] },
+          value: values[1],
+          title: { text: "Avg NO2 AQI" },
+          type: "indicator",
+          mode: "gauge+number"
+          //delta: { reference: 400 },
+          //gauge: { axis: { range: [null, 60] } }
+      }
+  ];
+  
+  var layout = { width: 400, height: 500, margin: { t: 0, b: 0 } };
+  Plotly.newPlot('gauge2', datagauge2, layout);
+  
+  
+
+   //filter
+   //let sampleArray3 = samples.filter(sampleObject => sampleObject.id == sample);
+   //console.log(sampleArray);
+
+   //let sampleResult3 = sampleArray[2];
+   //console.log(sampleResult);
+
+  //needle gauge3
+  let datagauge3 = [
+      {
+          domain: { x: [0, 1], y: [0, 1] },
+          value: values[2],
+          title: { text: "Avg PM2.5 AQI" },
+          type: "indicator",
+          mode: "gauge+number"
+          //delta: { reference: 400 },
+          //gauge: { axis: { range: [null, 60] } }
+      }
+  ];
+  
+  var layout = { width: 400, height: 500, margin: { t: 0, b: 0 } };
+  Plotly.newPlot('gauge3', datagauge3, layout);
+
+
+
       let traceBubble = {
         x: aqis,
         y: values,
