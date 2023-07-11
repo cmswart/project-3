@@ -1,0 +1,48 @@
+-- Use the provided information to create a table schema for each of the six CSV files
+DROP TABLE IF EXISTS averages;
+CREATE TABLE averages (
+	Country VARCHAR NOT NULL,
+	Ozone_AQI_Value VARCHAR NOT NULL,
+	NO2_AQI_Value VARCHAR NOT NULL,
+	PM25_AQI_Value VARCHAR NOT NULL,
+	CO_AQI_Value VARCHAR NOT NULL,
+	PRIMARY KEY (country)
+);
+DROP TABLE IF EXISTS merge_aqi;
+CREATE TABLE merge_aqi (
+	Country VARCHAR NOT NULL,
+	Region VARCHAR NOT NULL,
+	Population VARCHAR NOT NULL,
+	Area VARCHAR NOT NULL,
+	Pop_Density VARCHAR NOT NULL,
+	Coastline VARCHAR NOT NULL,
+	Net_Migration VARCHAR NOT NULL,
+	Infant_Mortality VARCHAR NOT NULL,
+	GDP VARCHAR NOT NULL,
+	Literacy VARCHAR NOT NULL,
+	Phones VARCHAR NOT NULL,
+	Arable VARCHAR NOT NULL,
+	Crops VARCHAR NOT NULL,
+	Other VARCHAR NOT NULL,
+	Climate VARCHAR,
+	Birthrate VARCHAR NOT NULL,
+	Deathrate VARCHAR NOT NULL,
+	Agriculture VARCHAR NOT NULL,
+	Industry VARCHAR NOT NULL,
+	Service VARCHAR NOT NULL,
+	City VARCHAR NOT NULL,
+	AQI_Value VARCHAR NOT NULL,
+	AQI_Category VARCHAR NOT NULL,
+	CO_AQI_Value VARCHAR NOT NULL,
+	CO_AQI_Category VARCHAR NOT NULL,
+	Ozone_AQI_Value VARCHAR NOT NULL,
+	Ozone_AQI_Category VARCHAR NOT NULL,
+	NO2_AQI_Value VARCHAR NOT NULL,
+	NO2_AQI_Category VARCHAR NOT NULL,
+	PM25_AQI_Value VARCHAR NOT NULL,
+	PM25_AQI_Category VARCHAR NOT NULL,
+	lat VARCHAR NOT NULL,
+	lng VARCHAR NOT NULL
+);
+
+-- Import each CSV file into its corresponding SQL table.
