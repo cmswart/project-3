@@ -1,5 +1,3 @@
-//read in data here
-
 // create variable to store sample data
 const sample_data = "G7_AQI_Countries.json"
 
@@ -23,6 +21,8 @@ function buildcharts(country) {
           title: { text: "Avg Ozone AQI" },
           type: "indicator",
           mode: "gauge+number"
+          
+  
           //delta: { reference: 400 },
           //gauge: { axis: { range: [null, 60] } }
       }
@@ -102,40 +102,12 @@ function buildcharts(country) {
     });
 };
 
-//buildMetadata function
-function buildMetadata(index) {
-    d3.json(sample_data, function(err, data) {
-    //d3.json(sample_data).then(function(data) {
-        console.log("this metadata")
-        let metadata = data.metadata;
-        console.log(metadata);
 
-        //filter countries down
-        //let metadataArray = metadata.filter(metadataObject => metadataObject.id == country);
-        //console.log(metadataArray)
-
-        //unpack Array
-        let metadataResult = metadataArray[0]
-        console.log("this is metadataResults")
-        console.log(metadataResult)
-
-        //d3.select method to get where to put metadata, assign to a variable
-        let metadataPanel = d3.select("#sample-metadata");
-        //wipe clean the panel
-        metadataPanel.html("")
-        //iterate over key value pairs in metadataResult and append to panel
-        for (key in metadataResult) {
-            metadataPanel.append("h5").text(`${key.toUpperCase()} : ${metadataResult[key]}`);
-        }
-
-    });
-};
 
 //Event Listener
 function optionChanged(newCountry) {
   //build charts with new sample
   buildcharts(newCountry);
-  buildMetadata(newCountry)
 };
 
 d3.csv('G7_demo_aqi.csv', function(err, rows){
@@ -167,20 +139,20 @@ d3.csv('G7_demo_aqi.csv', function(err, rows){
     }
 
     var data = [{
-        type: 'scattergeo',
-        locationmode: 'World',
-        lat: countryLat,
-        lon: countryLng,
-        hoverinfo: 'text',
-        text: hoverText,
-        marker: {
-            size: countrySize,
-            line: {
-                color: 'black',
-                width: 2
-            },
-        }
-    }];
+      type: 'scattergeo',
+      locationmode: 'World',
+      lat: countryLat,
+      lon: countryLng,
+      hoverinfo: 'text',
+      text: hoverText,
+      marker: {
+          size: countrySize,
+          line: {
+              color: 'black',
+              width: 2
+          },
+      }
+  }];
 
     var layout = {
         title: 'G7 AQI Map',
@@ -194,8 +166,50 @@ d3.csv('G7_demo_aqi.csv', function(err, rows){
 
 });
 
+//table with data
+d3.csv('G7_demo_aqi.csv', function(err, rows){
 
+  function unpack(rows, key) {
+  return rows.map(function(row) { return row[key]; });
+  }
 
+  var headerNames = d3.keys(rows[0]);
+
+  var headerValues = [];
+  var cellValues = [];
+  for (i = 0; i < headerNames.length; i++) {
+    headerValue = [headerNames[i]];
+    headerValues[i] = headerValue;
+    cellValue = unpack(rows, headerNames[i]);
+    cellValues[i] = cellValue;
+  }
+
+var data = [{
+  type: 'table',
+  columnwidth: [2000,2000,2000,0,0,0,0,0,0],
+  columnorder: [0,1,2,3,4,5,6,7,8,9],
+  header: {
+    values: headerValues,
+    align: "center",
+    line: {width: 1, color: 'rgb(50, 50, 50)'},
+    fill: {color: ['#1c3b46']},
+    font: {family: "Arial", size: 14, color: "white"}
+  },
+  cells: {
+    values: cellValues,
+    align: ["left", "left"],
+    line: {color: "black", width: 1},
+    fill: {color: ['#2daed1', 'rgba(228, 222, 249, 0.65)']},
+    font: {family: "Arial", size: 10, color: ["black"]}
+  }
+}]
+
+var layout = {
+  title: "G7 Country Overview"
+}
+
+Plotly.newPlot('country-metadata', data, layout);
+});
 
 
 // create an initial function called initialize

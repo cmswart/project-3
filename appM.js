@@ -1,12 +1,11 @@
-//read in data here
-
 // create variable to store sample data
 const sample_data = "G7_AQI_Countries.json"
 
 
 function buildcharts(country) {
     console.log("testing buildcharts function");
-    d3.json(sample_data).then(function(data) {
+    d3.json(sample_data, function(err, data) {
+    //d3.json(sample_data).then(function(data) {
       //console.log(data);
      
 
@@ -22,6 +21,8 @@ function buildcharts(country) {
           title: { text: "Avg Ozone AQI" },
           type: "indicator",
           mode: "gauge+number"
+          
+  
           //delta: { reference: 400 },
           //gauge: { axis: { range: [null, 60] } }
       }
@@ -81,69 +82,140 @@ function buildcharts(country) {
 
 
 
-      let traceBubble = {
-        x: aqis,
-        y: values,
-        mode: 'markers',
-        marker: {
-          size: values,
-          color: values,
-          colorscale: 'YlOrRd'
-        }
-      }
+  let traceBubble = {
+    x: aqis,
+    y: values,
+    type: 'bar'
+  }
 
-      let dataBubble = [traceBubble]
+  let dataBubble = [traceBubble]
 
-      let layoutBubble = {
-        title: "G7 Countries AQI",
-        showlegend: false,
-        xaxis: {title: "AQIs"},
-        yaxis: {title: "Values"}
-      }
+  let layoutBubble = {
+    title: "G7 Countries AQI",
+    showlegend: false,
+    xaxis: {title: "AQIs"},
+    yaxis: {title: "Values"}
+  }
 
-      Plotly.newPlot('bubble', dataBubble, layoutBubble);
+  Plotly.newPlot('bubble', dataBubble, layoutBubble);
     
     });
 };
 
-//buildMetadata function
-function buildMetadata(index) {
-    d3.json(sample_data).then(function(data) {
-        console.log("this metadata")
-        let metadata = data.metadata;
-        console.log(metadata);
 
-        //filter countries down
-        //let metadataArray = metadata.filter(metadataObject => metadataObject.id == country);
-        //console.log(metadataArray)
-
-        //unpack Array
-        let metadataResult = metadataArray[0]
-        console.log("this is metadataResults")
-        console.log(metadataResult)
-
-        //d3.select method to get where to put metadata, assign to a variable
-        let metadataPanel = d3.select("#sample-metadata");
-        //wipe clean the panel
-        metadataPanel.html("")
-        //iterate over key value pairs in metadataResult and append to panel
-        for (key in metadataResult) {
-            metadataPanel.append("h5").text(`${key.toUpperCase()} : ${metadataResult[key]}`);
-        }
-
-    });
-};
 
 //Event Listener
 function optionChanged(newCountry) {
   //build charts with new sample
   buildcharts(newCountry);
-  buildMetadata(newCountry)
 };
+
+d3.csv('G7_demo_aqi.csv', function(err, rows){
+
+    function unpack(rows, key) {
+        return rows.map(function(row) { return row[key]; });
+    }
+
+    var countryName = unpack(rows, 'Country'),
+        countryPop = unpack(rows, 'Population'),
+        countryGdp = unpack(rows, 'GDP ($ per capita)'),
+        countryOzone = unpack(rows, 'Avg Ozone AQI'),
+        countryNo2 = unpack(rows, 'Avg NO2 AQI'),
+        countryPm25 = unpack(rows, 'Avg PM2.5 AQI'),
+        countryLat = unpack(rows, 'lat'),
+        countryLng = unpack(rows, 'lng'),
+        countrySize = [],
+        hoverText = [];
+        //scale = 150;
+        console.log(countryLat)
+        console.log(countryLng)
+
+
+    for ( var i = 0 ; i < countryOzone.length; i++) {
+        var currentSize = countryOzone[i];
+        var currentText = countryName[i] + " Pop: " + countryPop[i] + " GDP:" + countryGdp[i] + " Ozone: " + countryOzone[i] + " N02: " + countryNo2[i] + " PM2.5: " + countryPm25[i];
+        countrySize.push(currentSize);
+        hoverText.push(currentText);
+    }
+
+    var data = [{
+      type: 'scattergeo',
+      locationmode: 'World',
+      lat: countryLat,
+      lon: countryLng,
+      hoverinfo: 'text',
+      text: hoverText,
+      marker: {
+          size: countrySize,
+          line: {
+              color: 'black',
+              width: 2
+          },
+      }
+  }];
+
+    var layout = {
+        title: 'G7 AQI Map',
+        'geo': {
+            'scope': 'World',
+            'resolution': 50
+        }
+    };
+
+    Plotly.newPlot("map", data, layout, {showLink: false});
+
+});
+
+//table with data
+d3.csv('G7_demo_aqi.csv', function(err, rows){
+
+  function unpack(rows, key) {
+  return rows.map(function(row) { return row[key]; });
+  }
+
+  var headerNames = d3.keys(rows[0]);
+
+  var headerValues = [];
+  var cellValues = [];
+  for (i = 0; i < headerNames.length; i++) {
+    headerValue = [headerNames[i]];
+    headerValues[i] = headerValue;
+    cellValue = unpack(rows, headerNames[i]);
+    cellValues[i] = cellValue;
+  }
+
+var data = [{
+  type: 'table',
+  columnwidth: [2000,2000,2000,0,0,0,0,0,0],
+  columnorder: [0,1,2,3,4,5,6,7,8,9],
+  header: {
+    values: headerValues,
+    align: "center",
+    line: {width: 1, color: 'rgb(50, 50, 50)'},
+    fill: {color: ['#1c3b46']},
+    font: {family: "Arial", size: 14, color: "white"}
+  },
+  cells: {
+    values: cellValues,
+    align: ["left", "left"],
+    line: {color: "black", width: 1},
+    fill: {color: ['#2daed1', 'rgba(228, 222, 249, 0.65)']},
+    font: {family: "Arial", size: 10, color: ["black"]}
+  }
+}]
+
+var layout = {
+  title: "G7 Country Overview"
+}
+
+Plotly.newPlot('country-metadata', data, layout);
+});
+
 
 // create an initial function called initialize
 function initialize() {
-  d3.json(sample_data).then(function(data) {
+    d3.json(sample_data, function(err, data) {
+  //d3.json(sample_data).then(function(data) {
     let countryNames = data.index;
 
     let pulldownSelect = d3.select("#selDataset")

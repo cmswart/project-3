@@ -13,7 +13,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12 jumbotron text-center" style="background-color: rgb(184, 115, 51);">
+      <div class="col-md-12 jumbotron text-center" style="background-color: rgb(255,224,117);">
         <h1>Air Quality Index Dashboard</h1>
         <p>Compare data from G7 Countries</p>
       </div>
@@ -24,13 +24,14 @@
           <h5>Country:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
-        <div class="panel panel-default">
+        <!--<div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Demographic Info</h3>
           </div>
           <div id="country-metadata" class="panel-body"></div>
-        </div>
+        </div>-->
       </div>
+    
       <div class="col-md-3">
         <div id="gauge"></div>
       </div>
@@ -42,8 +43,11 @@
       </div>
     </div> 
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <div id="bubble"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="country-metadata"></div>
       </div>
     </div>
     <div class="row">
