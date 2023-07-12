@@ -28,7 +28,7 @@ function buildcharts(country) {
       }
   ];
   
-  var layout = { width: 400, height: 500, margin: { t: 0, b: 0 } };
+  var layout = { width: 325, height: 500, margin: { t: 0, b: 0 } };
   Plotly.newPlot('gauge', datagauge1, layout);
   
  
@@ -52,7 +52,7 @@ function buildcharts(country) {
       }
   ];
   
-  var layout = { width: 400, height: 500, margin: { t: 0, b: 0 } };
+  var layout = { width: 325, height: 500, margin: { t: 0, b: 0 } };
   Plotly.newPlot('gauge2', datagauge2, layout);
   
   
@@ -77,7 +77,7 @@ function buildcharts(country) {
       }
   ];
   
-  var layout = { width: 400, height: 500, margin: { t: 0, b: 0 } };
+  var layout = { width: 325, height: 500, margin: { t: 0, b: 0 } };
   Plotly.newPlot('gauge3', datagauge3, layout);
 
 
