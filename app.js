@@ -232,7 +232,7 @@ function initialize() {
 
      // call buildcharts function
      buildcharts(countryNames.indexOf(firstCountry));
-     buildMetadata(countryNames.indexOf(firstCountry));
+     
 
   });
   
