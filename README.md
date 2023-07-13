@@ -49,6 +49,8 @@ Breakdown of Tasks
     - HTML/CSS - Michelle
 - Launch to Github Pages - ALL
 - Presentation -  Jordan
+
+
 Presentation Link: https://docs.google.com/presentation/d/1Y28GhJpIsjTvFuGc9eoBaY2ruEIrdEp8RbmQs-IoXUA/edit?usp=sharing
 
 
