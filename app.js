@@ -13,6 +13,8 @@ function buildcharts(country) {
       let values = data.data[country]
       let aqis = data.columns
 
+      // Cassie's code starts here
+
       //needle gauge1
     let datagauge1 = [
       {
@@ -80,7 +82,10 @@ function buildcharts(country) {
   var layout = { width: 325, height: 500, margin: { t: 0, b: 0 } };
   Plotly.newPlot('gauge3', datagauge3, layout);
 
+  // Cassie's Code ends here
 
+
+  // Honorine's code starts here
 
   let traceBubble = {
     x: aqis,
@@ -133,7 +138,12 @@ d3.csv('G7_demo_aqi.csv', function(err, rows){
 
     for ( var i = 0 ; i < countryOzone.length; i++) {
         var currentSize = countryOzone[i];
-        var currentText = countryName[i] + " Pop: " + countryPop[i] + " GDP:" + countryGdp[i] + " Ozone: " + countryOzone[i] + " N02: " + countryNo2[i] + " PM2.5: " + countryPm25[i];
+        var currentText = countryName[i] + "<br>" +
+        " Pop: " + countryPop[i] + "<br>" +
+        " GDP:" + countryGdp[i] + "<br>" +
+        " Ozone: " + countryOzone[i] + "<br>" +
+        " N02: " + countryNo2[i] + "<br>" +
+        " PM2.5: " + countryPm25[i];
         countrySize.push(currentSize);
         hoverText.push(currentText);
     }
@@ -165,6 +175,9 @@ d3.csv('G7_demo_aqi.csv', function(err, rows){
     Plotly.newPlot("map", data, layout, {showLink: false});
 
 });
+// Honorine's code ends here
+
+// Michelle's code starts here
 
 //table with data
 d3.csv('G7_demo_aqi.csv', function(err, rows){
@@ -210,6 +223,8 @@ var layout = {
 
 Plotly.newPlot('country-metadata', data, layout);
 });
+
+// Michelle's code ends here
 
 
 // create an initial function called initialize
